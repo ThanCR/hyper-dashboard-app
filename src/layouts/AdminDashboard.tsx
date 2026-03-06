@@ -19,7 +19,7 @@ const pageConfig: Record<string, { title: string; description: string }> = {
 }
 
 export default function AdminDashboard() {
-  const [activeTab, setActiveTab] = useState("inventory")
+  const [activeTab, setActiveTab] = useState("orders")
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
