@@ -8,8 +8,8 @@ interface Props{
 
 export const useInventoryStore = ({searchQuery, categoryFilter, statusFilter }: Props) => {
 
-    const {inventoryData} = useAppSelector(state => state.inventory)
-    const initialInventory = inventoryData
+    const {inventoryData: initialInventory} = useAppSelector(state => state.inventory)
+    console.log({initialInventory})
 
     const filtered = initialInventory.filter((item) => {
         const matchesSearch =
