@@ -7,25 +7,13 @@ import {
     setDashboardMockDataToLocalStorage,
     setOrdersMockDataToLocalStorage,
     setReportsMockDataToLocalStorage,
-    setMockDataToLocalStorage,
     getDataFromLocalStorage,
-    isLocalStoragePopulated
+    isInventoryLocalStoragePopulated,
+    isDashboardLocalStoragePopulated,
+    isOrdersLocalStoragePopulated,
+    isReportsLocalStoragePopulated,
 } from "./localStorage"
 
-export const initializeData = () => {
-    console.log('Initializing data...')
-    if (!isLocalStoragePopulated())
-        setMockDataToLocalStorage()
-
-    const { dashboardData, inventoryData, ordersData, reportsData } = getDataFromLocalStorage()
-    return {
-        dashboardData: JSON.parse(dashboardData || '{}'),
-        inventoryData: JSON.parse(inventoryData || '{}') as InventoryItem[],
-        ordersData: JSON.parse(ordersData || '{}'),
-        reportsData: JSON.parse(reportsData || '{}')
-    }
-
-}
 export const saveData = ({ dashboardData, inventoryData, ordersData, reportsData }: any) => {
     console.log('Local storage data saved!')
     localStorage.setItem('dashboard-data', JSON.stringify(dashboardData))
@@ -34,14 +22,14 @@ export const saveData = ({ dashboardData, inventoryData, ordersData, reportsData
     localStorage.setItem('reports-data', JSON.stringify(reportsData))
 }
 export const initializeInventoryData = () => {
-    if (getDataFromLocalStorage().inventoryData)
+    if (!isInventoryLocalStoragePopulated())
         setInventoryMockDataToLocalStorage()
     return {
         inventoryData: JSON.parse(getDataFromLocalStorage().inventoryData || '{}') as InventoryItem[]
     }
 }
 export const initializeDashboardData = () => {
-    if (getDataFromLocalStorage().dashboardData)
+    if (!isDashboardLocalStoragePopulated())
         setDashboardMockDataToLocalStorage()
     const { categoryData, lowStockItems, recentOrders, revenueData } = JSON.parse(getDataFromLocalStorage().dashboardData || '{}') as DashboardData
     return {
@@ -52,14 +40,14 @@ export const initializeDashboardData = () => {
     }
 }
 export const initializeOrdersData = () => {
-    if (getDataFromLocalStorage().ordersData)
+    if (!isOrdersLocalStoragePopulated())
         setOrdersMockDataToLocalStorage()
     return {
         ordersData: JSON.parse(getDataFromLocalStorage().ordersData || '{}') as Order[]
     }
 }
 export const initializeReportsData = () => {
-    if (getDataFromLocalStorage().ordersData)
+    if (!isReportsLocalStoragePopulated())
         setReportsMockDataToLocalStorage()
     const { categoryBreakdown, customerGrowth, monthlyRevenue, weeklyOrders, topProducts } = JSON.parse(getDataFromLocalStorage().reportsData || '{}') as ReportData
     return {

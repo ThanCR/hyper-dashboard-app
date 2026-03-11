@@ -32,12 +32,19 @@ export const getDataFromLocalStorage = () => {
         reportsData: localStorage.getItem('reports-data') ?? '',
     }
 }
-export const isLocalStoragePopulated = () => {
-    const { dashboardData, ordersData, reportsData, inventoryData } = getDataFromLocalStorage()
-    return Boolean(
-        dashboardData &&
-        inventoryData &&
-        ordersData &&
-        reportsData
-    )
+export const isInventoryLocalStoragePopulated = () => {
+    const { inventoryData } = getDataFromLocalStorage()
+    return Boolean(inventoryData)
+}
+export const isDashboardLocalStoragePopulated = () => {
+    const { dashboardData } = getDataFromLocalStorage()
+    return Boolean(dashboardData)
+}
+export const isReportsLocalStoragePopulated = () => {
+    const { reportsData } = getDataFromLocalStorage()
+    return Boolean(reportsData)
+}
+export const isOrdersLocalStoragePopulated = () => {
+    const { ordersData } = getDataFromLocalStorage()
+    return Boolean(ordersData)
 }
