@@ -1,13 +1,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { customerGrowth } from "@/mocks/reports-data.mock"
 import { ArrowUpRight, TrendingUp, Users } from "lucide-react"
 import { LineChart, CartesianGrid, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 import { CustomTooltip } from "../../ui/CustomToolTip"
+import { useReportsStore } from "@/hooks/useReportsStore"
 
 const BLUE = "#6366f1"
 const TEAL = "#2dd4bf"
 
 export const CustomersTab = () => {
+
+    const {customerGrowth} = useReportsStore()
+
     return (
         <div className="flex flex-col gap-6">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

@@ -1,9 +1,12 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { topProducts } from "@/mocks/reports-data.mock"
+import { useReportsStore } from "@/hooks/useReportsStore"
 import { ArrowUpRight, ArrowDownRight } from "lucide-react"
 
 
 export const ProductsTab = () => {
+
+  const { topProducts } = useReportsStore()
+
   return (
     <Card className="bg-card border-border">
             <CardHeader className="pb-3">

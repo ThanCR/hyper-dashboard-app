@@ -1,12 +1,15 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { CustomTooltip } from '@/components/ui/CustomToolTip'
 import { PieToolTip } from '@/components/ui/PieToolTip'
-import { categoryBreakdown, weeklyOrders } from '@/mocks/reports-data.mock'
+import { useReportsStore } from '@/hooks/useReportsStore'
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
 const BLUE = "#6366f1"
 
 export const OrdersTab = () => {
+
+  const {weeklyOrders, categoryBreakdown} = useReportsStore()
+
   return (
     <div className="flex flex-col gap-6">
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">

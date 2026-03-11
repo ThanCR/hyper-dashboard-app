@@ -1,9 +1,12 @@
 import { Badge } from "@/components/ui/badge"
 import  { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { recentOrders } from "@/mocks/dashboard-data.mock"
+import { useDashboardStore } from "@/hooks/useDashboardStore"
 import { ArrowUpRight } from "lucide-react"
 
 export const DashboardRecentOrders = () => {
+
+  const {recentOrders} = useDashboardStore()
+
   return (
     <Card className="bg-card border-border">
           <CardHeader className="pb-3">
@@ -23,10 +26,10 @@ export const DashboardRecentOrders = () => {
                       <span className="text-sm font-medium text-foreground">{order.customer}</span>
                       <span className="text-xs font-mono text-muted-foreground">{order.id}</span>
                     </div>
-                    <span className="text-xs text-muted-foreground">{order.time}</span>
+                    <span className="text-xs text-muted-foreground">{order.date}</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-sm font-semibold text-foreground">{order.amount}</span>
+                    <span className="text-sm font-semibold text-foreground">$ {order.total}</span>
                     <Badge
                       variant="secondary"
                       className={

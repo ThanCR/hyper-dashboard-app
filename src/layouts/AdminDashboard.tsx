@@ -1,9 +1,7 @@
-"use client"
-
 import { useState } from "react"
 import { X } from "lucide-react"
-import { AdminHeader } from "@/containers/AdminHeader"
-import { AdminSidebar } from "@/containers/AdminSidebar"
+import { AdminHeader } from "@/views/AdminHeader"
+import { AdminSidebar } from "@/views/AdminSidebar"
 import { DashboardView } from "@/components/dashboard/DashboardView"
 import { InventoryView } from "@/components/inventory/InventoryView"
 import { OrdersView } from "@/components/orders/OrdersView"
@@ -19,13 +17,13 @@ const pageConfig: Record<string, { title: string; description: string }> = {
 }
 
 export default function AdminDashboard() {
-  const [activeTab, setActiveTab] = useState("reports")
+  const [activeTab, setActiveTab] = useState("dashboard")
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const currentPage = pageConfig[activeTab] || pageConfig.dashboard
 
-  function handleTabChange(tab: string) {
+  const handleTabChange = (tab: string) => {
     setActiveTab(tab)
     setMobileMenuOpen(false)
   }

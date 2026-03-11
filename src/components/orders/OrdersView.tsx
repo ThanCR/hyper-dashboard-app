@@ -2,7 +2,7 @@ import { OrdersSummary } from "./components/OrdersSummary"
 import { OrdersFilters } from "./components/OrdersFilters"
 import { OrdersTable } from "./components/OrdersTable"
 import { OrderDetailDialog } from "./components/OrderDetailDialog"
-import { useOrders } from "@/hooks/useOrders"
+import { useOrdersStore } from "@/hooks/useOrdersStore"
 
 
 export function OrdersView() {
@@ -18,7 +18,7 @@ export function OrdersView() {
     setSearchQuery,
     setStatusFilter,
     setSelectedOrder
-   } = useOrders()
+   } = useOrdersStore()
 
   return (
     <div className="flex flex-col gap-6">

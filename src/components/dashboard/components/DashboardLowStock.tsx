@@ -1,10 +1,13 @@
 import { Badge } from '@/components/ui/badge'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import { lowStockItems } from '@/mocks/dashboard-data.mock'
+import { useDashboardStore } from '@/hooks/useDashboardStore'
 import { AlertTriangle } from 'lucide-react'
 
 
 export const DashboardLowStock = () => {
+
+  const {lowStockItems} = useDashboardStore()
+
   return (
     <Card className="bg-card border-border">
           <CardHeader className="pb-3">

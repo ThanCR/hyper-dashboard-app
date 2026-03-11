@@ -1,13 +1,16 @@
 import { Badge } from "@/components/ui/badge"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { CustomTooltip } from "@/components/ui/CustomToolTip"
-import { revenueData, categoryData } from "@/mocks/dashboard-data.mock"
+import { useDashboardStore } from "@/hooks/useDashboardStore"
 import { ResponsiveContainer, CartesianGrid, XAxis, YAxis, Area, Bar, AreaChart, BarChart, Tooltip } from "recharts"
 
 const BLUE = "#6366f1"
 const TEAL = "#2dd4bf"
 
 export const DashboardCharts = () => {
+
+    const { revenueData, categoryData } = useDashboardStore()
+
     return (
         <div className="grid grid-cols-1 gap-4 xl:grid-cols-7">
             <Card className="bg-card border-border xl:col-span-4">

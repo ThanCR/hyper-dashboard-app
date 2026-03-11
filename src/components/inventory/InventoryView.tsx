@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { AddItemDialog } from "./components/AddItemDialog"
-import { useInventory } from "@/hooks/useInventory"
+import { useInventoryStore } from "@/hooks/useInventoryStore"
 import { InventoryTable } from "./components/InventoryTable"
 import { FilterBar } from "./components/FilterBar"
 import { InventorySummary } from "./components/InventorySummary"
@@ -11,7 +11,7 @@ export function InventoryView() {
   const [statusFilter, setStatusFilter] = useState("all")
   const [addDialogOpen, setAddDialogOpen] = useState(false)
 
-  const { filtered, totalItems, inStockCount, lowStockCount, outOfStockCount } = useInventory({ searchQuery, categoryFilter, statusFilter })
+  const { filtered, totalItems, inStockCount, lowStockCount, outOfStockCount } = useInventoryStore({ searchQuery, categoryFilter, statusFilter })
 
   return (
     <div className="flex flex-col gap-6">

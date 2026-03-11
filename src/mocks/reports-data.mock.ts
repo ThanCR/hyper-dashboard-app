@@ -35,7 +35,7 @@ export const topProducts = [
 ]
 
 export const customerGrowth = [
-  { month: "Sep", newCustomers: 124, returning: 312 },
+  { month: "Sep", newCustomers: 404, returning: 612 },
   { month: "Oct", newCustomers: 156, returning: 345 },
   { month: "Nov", newCustomers: 189, returning: 401 },
   { month: "Dec", newCustomers: 234, returning: 478 },

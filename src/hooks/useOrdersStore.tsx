@@ -1,8 +1,9 @@
-import { orders } from "@/mocks/orders-data.mock"
 import type { Order } from "@/types/Order"
 import { useState } from "react"
+import { useAppSelector } from "./reduxHooks"
 
-export const useOrders = () => {
+export const useOrdersStore = () => {
+    const {ordersData: orders} = useAppSelector(({orders}) => orders)
     const [selectedOrder, setSelectedOrder] = useState<Order | null>(null)
     const [searchQuery, setSearchQuery] = useState("")
     const [statusFilter, setStatusFilter] = useState("all")

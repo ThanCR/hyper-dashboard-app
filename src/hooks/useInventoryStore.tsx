@@ -1,7 +1,4 @@
-import { initialInventoryMockData } from "@/mocks/inventory-data.mock"
-
-
-const initialInventory = initialInventoryMockData
+import { useAppSelector } from "./reduxHooks"
 
 interface Props{
     searchQuery: string,
@@ -9,7 +6,11 @@ interface Props{
     statusFilter: string
 }
 
-export const useInventory = ({searchQuery, categoryFilter, statusFilter }: Props) => {
+export const useInventoryStore = ({searchQuery, categoryFilter, statusFilter }: Props) => {
+
+    const {inventoryData} = useAppSelector(state => state.inventory)
+    const initialInventory = inventoryData
+
     const filtered = initialInventory.filter((item) => {
         const matchesSearch =
             item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
