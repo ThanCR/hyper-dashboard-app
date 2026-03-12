@@ -5,7 +5,6 @@ import { ResponsiveContainer, CartesianGrid, XAxis, YAxis, Legend, Area, AreaCha
 import { CustomTooltip } from "../../ui/CustomToolTip"
 import { useReportsStore } from "@/hooks/useReportsStore"
 
-
 const BLUE = "#6366f1"
 const TEAL = "#2dd4bf"
 

@@ -26,7 +26,6 @@ export const useOrdersStore = () => {
         searchQuery,
         statusFilter,
         selectedOrder,
-
         setSearchQuery,
         setStatusFilter,
         setSelectedOrder

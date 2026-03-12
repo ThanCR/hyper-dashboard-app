@@ -1,1 +1,5 @@
 export * from './store'
+export * from './dashboardSlice'
+export * from './inventorySlice'
+export * from './ordersSlice'
+export * from './reportsSlice'

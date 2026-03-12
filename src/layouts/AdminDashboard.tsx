@@ -3,10 +3,10 @@ import { X } from "lucide-react"
 import { AdminHeader } from "@/views/AdminHeader"
 import { AdminSidebar } from "@/views/AdminSidebar"
 import { DashboardView } from "@/components/dashboard/DashboardView"
-import { InventoryView } from "@/components/inventory/InventoryView"
 import { OrdersView } from "@/components/orders/OrdersView"
 import { ReportsView } from "@/components/reports/ReportsView"
 import { Settings } from "@/components/settings/Settings"
+import { InventoryView } from "@/components/inventory/InventoryView"
 
 const pageConfig: Record<string, { title: string; description: string }> = {
   dashboard: { title: "Dashboard", description: "Overview of your business metrics" },
@@ -17,7 +17,7 @@ const pageConfig: Record<string, { title: string; description: string }> = {
 }
 
 export default function AdminDashboard() {
-  const [activeTab, setActiveTab] = useState("dashboard")
+  const [activeTab, setActiveTab] = useState("inventory")
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 

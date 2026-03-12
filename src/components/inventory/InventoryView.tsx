@@ -11,7 +11,7 @@ export function InventoryView() {
   const [statusFilter, setStatusFilter] = useState("all")
   const [addDialogOpen, setAddDialogOpen] = useState(false)
 
-  const { filtered, totalItems, inStockCount, lowStockCount, outOfStockCount } = useInventoryStore({ searchQuery, categoryFilter, statusFilter })
+  const { filtered, totalItems, inStockCount, lowStockCount, outOfStockCount, deleteInventoryItem } = useInventoryStore({ searchQuery, categoryFilter, statusFilter })
 
   return (
     <div className="flex flex-col gap-6">
@@ -30,7 +30,7 @@ export function InventoryView() {
         setStatusFilter={setStatusFilter}
         setAddDialogOpen={setAddDialogOpen}
       />
-      <InventoryTable filtered={filtered} />
+      <InventoryTable filtered={filtered} deleteInventoryItem={deleteInventoryItem}/>
       <AddItemDialog
         addDialogOpen={addDialogOpen}
         setAddDialogOpen={setAddDialogOpen}

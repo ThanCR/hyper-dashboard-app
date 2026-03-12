@@ -3,10 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const inventorySlice = createSlice({
     name: 'inventoryData',
-    initialState: initializeInventoryData,
+    initialState: initializeInventoryData(),
     reducers: {
-
+        onDeleteInventoryItem: (state, { payload }) => {
+            state.inventoryData = state.inventoryData.filter( item => item.id !== payload.item.id )
+        },
     }
 })
-export const {} = inventorySlice.actions
+export const {
+    onDeleteInventoryItem
+} = inventorySlice.actions
 export default inventorySlice.reducer

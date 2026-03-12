@@ -25,7 +25,7 @@ type SaveDataParameters = {
     reportsData: ReportData
 }
 
-export const saveData = ({ dashboardData, inventoryData, ordersData, reportsData }: SaveDataParameters) => {9
+export const saveData = ({ dashboardData, inventoryData, ordersData, reportsData }: SaveDataParameters) => {
     localStorage.setItem(LOCAL_STORAGE_KEYS.DASHBOARD, JSON.stringify(dashboardData))
     localStorage.setItem(LOCAL_STORAGE_KEYS.INVENTORY, JSON.stringify(inventoryData))
     localStorage.setItem(LOCAL_STORAGE_KEYS.ORDERS, JSON.stringify(ordersData))

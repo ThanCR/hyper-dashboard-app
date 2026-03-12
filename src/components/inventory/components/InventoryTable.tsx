@@ -7,10 +7,11 @@ import type { InventoryItem } from '@/types/InventoryItem'
 import { MoreHorizontal, Eye, Edit, Trash2, Package } from 'lucide-react'
 
 interface Props {
-    filtered: InventoryItem[]
+    filtered: InventoryItem[],
+    deleteInventoryItem: (item: InventoryItem) => void
 }
 
-export const InventoryTable = ({filtered}: Props) => {
+export const InventoryTable = ({ filtered, deleteInventoryItem }: Props) => {
     return (
         <Card className="bg-card border-border">
             <CardContent className="p-0">
@@ -65,8 +66,8 @@ export const InventoryTable = ({filtered}: Props) => {
                                             <DropdownMenuItem className="text-foreground">
                                                 <Edit className="size-4" /> Edit
                                             </DropdownMenuItem>
-                                            <DropdownMenuItem className="text-destructive">
-                                                <Trash2 className="size-4" /> Delete
+                                            <DropdownMenuItem className="text-destructive" onClick={() => {deleteInventoryItem(item)}}>
+                                                    <Trash2 className="size-4" /> Delete
                                             </DropdownMenuItem>
                                         </DropdownMenuContent>
                                     </DropdownMenu>
