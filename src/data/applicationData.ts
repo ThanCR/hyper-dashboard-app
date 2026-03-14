@@ -16,21 +16,7 @@ import {
     getReportsDataFromLocalStorage,
     getOrdersDataFromLocalStorage,
 } from "./localStorage"
-import { LOCAL_STORAGE_KEYS } from "@/constants/localStorage"
 
-type SaveDataParameters = {
-    dashboardData: DashboardData,
-    inventoryData: InventoryItem[],
-    ordersData: Order[],
-    reportsData: ReportData
-}
-
-export const saveData = ({ dashboardData, inventoryData, ordersData, reportsData }: SaveDataParameters) => {
-    localStorage.setItem(LOCAL_STORAGE_KEYS.DASHBOARD, JSON.stringify(dashboardData))
-    localStorage.setItem(LOCAL_STORAGE_KEYS.INVENTORY, JSON.stringify(inventoryData))
-    localStorage.setItem(LOCAL_STORAGE_KEYS.ORDERS, JSON.stringify(ordersData))
-    localStorage.setItem(LOCAL_STORAGE_KEYS.REPORTS, JSON.stringify(reportsData))
-}
 export const initializeInventoryData = () => {
     if (!isInventoryLocalStoragePopulated())
         setInventoryMockDataToLocalStorage()

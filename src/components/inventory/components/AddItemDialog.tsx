@@ -3,6 +3,8 @@ import { DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFoot
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { SelectTrigger, SelectValue, SelectContent, SelectItem, Select } from "@/components/ui/select"
+import { useInventoryStore } from "@/hooks/useInventoryStore"
+import { useState } from "react"
 
 
 interface Props{
@@ -11,6 +13,38 @@ interface Props{
 }
 
 export const AddItemDialog = ({addDialogOpen, setAddDialogOpen}: Props) => {
+
+  const [{productName, productSKU, category, price, initialStock}, setNewProduct] = useState({
+    productName: '',
+    productSKU: '',
+    category: '',
+    price: 0,
+    initialStock: 0,
+  })
+
+  const { addNewInventoryItem } = useInventoryStore()
+
+  const handleFormValues = (field: 'productName' | 'productSKU' | 'category' | 'price' | 'initialStock', newValue: string | number) => {
+    setNewProduct( prev => ({
+      ...prev,
+      [field]: newValue
+    }) )
+  }
+
+  const handleAddInventoryItem = () => {
+     setAddDialogOpen(false)
+    addNewInventoryItem({
+      id: crypto.randomUUID(),
+      name: productName,
+      sku: productSKU,
+      category:category,
+      price: price,
+      stock: initialStock,
+      threshold: 5,
+      status: "In Stock",
+      lastUpdated: 'seconds'
+    })
+  }
     
   return (
     <Dialog open={addDialogOpen} onOpenChange={setAddDialogOpen}>
@@ -24,16 +58,24 @@ export const AddItemDialog = ({addDialogOpen, setAddDialogOpen}: Props) => {
           <div className="flex flex-col gap-4 py-4">
             <div className="flex flex-col gap-2">
               <Label className="text-foreground">Product Name</Label>
-              <Input className="bg-secondary border-border text-foreground" placeholder="Enter product name" />
+              <Input 
+                className="bg-secondary border-border text-foreground" 
+                placeholder="Enter product name"  
+                value={productName} 
+                onChange={(e) => {handleFormValues('productName', e.target.value)}}/>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
                 <Label className="text-foreground">SKU</Label>
-                <Input className="bg-secondary border-border text-foreground" placeholder="e.g. WBH-201" />
+                <Input 
+                  className="bg-secondary border-border text-foreground" 
+                  placeholder="e.g. WBH-201"
+                  value={productSKU}
+                  onChange={(e) => {handleFormValues('productSKU', e.target.value)}} />
               </div>
               <div className="flex flex-col gap-2">
                 <Label className="text-foreground">Category</Label>
-                <Select>
+                <Select value={category} onValueChange={(value) => {handleFormValues('category', value)}}>
                   <SelectTrigger className="bg-secondary border-border text-foreground">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
@@ -49,17 +91,29 @@ export const AddItemDialog = ({addDialogOpen, setAddDialogOpen}: Props) => {
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
                 <Label className="text-foreground">Price</Label>
-                <Input className="bg-secondary border-border text-foreground" type="number" placeholder="0.00" />
+                <Input 
+                  className="bg-secondary border-border text-foreground" 
+                  type="number" 
+                  placeholder="0.00"  
+                  value={price}
+                  onChange={(e) => { handleFormValues('price', Number.parseInt(e.target.value || '0')) }}
+                  />
               </div>
               <div className="flex flex-col gap-2">
                 <Label className="text-foreground">Initial Stock</Label>
-                <Input className="bg-secondary border-border text-foreground" type="number" placeholder="0" />
+                <Input 
+                  className="bg-secondary border-border text-foreground" 
+                  type="number" 
+                  placeholder="0" 
+                  value={initialStock}
+                  onChange={(e) => { handleFormValues('initialStock', Number.parseInt(e.target.value || '0')) }}
+                  />
               </div>
             </div>
           </div>
           <DialogFooter>
             <Button variant="outline" className="border-border text-foreground" onClick={() => setAddDialogOpen(false)}>Cancel</Button>
-            <Button className="bg-primary text-primary-foreground" onClick={() => setAddDialogOpen(false)}>Add Item</Button>
+            <Button className="bg-primary text-primary-foreground" onClick={handleAddInventoryItem}>Add Item</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

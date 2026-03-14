@@ -1,6 +1,9 @@
 import { useDispatch } from "react-redux"
 import { useAppSelector } from "./reduxHooks"
-import { onDeleteInventoryItem } from "@/store"
+import { onAddNewInventoryItem, onDeleteInventoryItem } from "@/store"
+import { saveInventoryData } from "@/data/localStorage"
+import { useEffect } from "react"
+import type { InventoryItem } from "@/types/InventoryItem"
 
 interface Props{
     searchQuery?: string,
@@ -8,13 +11,10 @@ interface Props{
     statusFilter?: string
 }
 
-export const useInventoryStore = ({searchQuery = '', categoryFilter = '', statusFilter = '' }: Props) => {
-
+export const useInventoryStore = ({searchQuery = '', categoryFilter = '', statusFilter = '' }: Props = {}) => {
     const dispatch = useDispatch()
-
-    const {inventoryData: initialInventory} = useAppSelector(state => state.inventory)
-
-    const filtered = initialInventory.filter((item) => {
+    const {inventoryData} = useAppSelector(state => state.inventory)
+    const filtered = inventoryData.filter((item) => {
         const matchesSearch =
             item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
             item.sku.toLowerCase().includes(searchQuery.toLowerCase())
@@ -22,22 +22,24 @@ export const useInventoryStore = ({searchQuery = '', categoryFilter = '', status
         const matchesStatus = statusFilter === "all" || item.status === statusFilter
         return matchesSearch && matchesCategory && matchesStatus
     })
-    const totalItems = initialInventory.length
-    const inStockCount = initialInventory.filter((i) => i.status === "In Stock").length
-    const lowStockCount = initialInventory.filter((i) => i.status === "Low Stock").length
-    const outOfStockCount = initialInventory.filter((i) => i.status === "Out of Stock").length
-
-    const deleteInventoryItem = (item: any) => {
-        dispatch(onDeleteInventoryItem({item}))
+    const deleteInventoryItem = (inventoryItemToBeDeleted: InventoryItem) => {
+        dispatch(onDeleteInventoryItem({inventoryItemToBeDeleted}))
     }
+    const addNewInventoryItem = (newInventoryItem: InventoryItem) => {
+        dispatch(onAddNewInventoryItem(newInventoryItem))
+    }
+    useEffect(() => {
+        saveInventoryData(inventoryData)
+    }, [inventoryData])
 
     return {
         filtered,
-        totalItems,
-        inStockCount,
-        lowStockCount,
-        outOfStockCount,
+        totalItems: inventoryData.length,
+        inStockCount: inventoryData.filter((i) => i.status === "In Stock").length,
+        lowStockCount: inventoryData.filter((i) => i.status === "Low Stock").length,
+        outOfStockCount: inventoryData.filter((i) => i.status === "Out of Stock").length,
 
+        addNewInventoryItem,
         deleteInventoryItem
     }
 }
