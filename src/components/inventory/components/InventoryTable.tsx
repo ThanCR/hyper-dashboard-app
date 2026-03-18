@@ -3,15 +3,19 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenu } from '@/components/ui/dropdown-menu'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import type { DialogData } from '@/types/DialogData'
 import type { InventoryItem } from '@/types/InventoryItem'
 import { MoreHorizontal, Eye, Edit, Trash2, Package } from 'lucide-react'
+import type { DialogAction } from '../hooks/useItemDialog'
 
 interface Props {
     filtered: InventoryItem[],
-    deleteInventoryItem: (item: InventoryItem) => void
+    deleteInventoryItem: (item: InventoryItem) => void,
+    setItemData: React.Dispatch<React.SetStateAction<DialogData>>,
+    onOpenItemDialog: (action: DialogAction, itemData?: DialogData) => void
 }
 
-export const InventoryTable = ({ filtered, deleteInventoryItem }: Props) => {
+export const InventoryTable = ({ filtered, deleteInventoryItem, setItemData, onOpenItemDialog }: Props) => {
     return (
         <Card className="bg-card border-border">
             <CardContent className="p-0">
@@ -31,8 +35,8 @@ export const InventoryTable = ({ filtered, deleteInventoryItem }: Props) => {
                     <TableBody>
                         {filtered.map((item) => (
                             <TableRow key={item.id} className="border-border">
-                                <TableCell className="font-medium text-foreground">{item.name}</TableCell>
-                                <TableCell className="font-mono text-xs text-muted-foreground">{item.sku}</TableCell>
+                                <TableCell className="font-medium text-foreground">{item.productName}</TableCell>
+                                <TableCell className="font-mono text-xs text-muted-foreground">{item.productSKU}</TableCell>
                                 <TableCell className="text-muted-foreground">{item.category}</TableCell>
                                 <TableCell className="text-foreground">${item.price.toFixed(2)}</TableCell>
                                 <TableCell className="text-foreground font-medium">{item.stock}</TableCell>
@@ -60,10 +64,10 @@ export const InventoryTable = ({ filtered, deleteInventoryItem }: Props) => {
                                             </Button>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent align="end" className="bg-card border-border">
-                                            <DropdownMenuItem className="text-foreground">
+                                            <DropdownMenuItem className="text-foreground" onClick={() => {onOpenItemDialog('View', item)}}>
                                                 <Eye className="size-4" /> View
                                             </DropdownMenuItem>
-                                            <DropdownMenuItem className="text-foreground">
+                                            <DropdownMenuItem className="text-foreground" onClick={() => {onOpenItemDialog('Edit', item)}}>
                                                 <Edit className="size-4" /> Edit
                                             </DropdownMenuItem>
                                             <DropdownMenuItem className="text-destructive" onClick={() => {deleteInventoryItem(item)}}>

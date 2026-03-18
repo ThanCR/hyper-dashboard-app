@@ -3,8 +3,10 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { SelectTrigger, SelectValue, SelectContent, SelectItem, Select } from "@/components/ui/select"
 import { Plus, Search } from "lucide-react"
+import type { DialogAction } from "../hooks/useItemDialog"
+import type { DialogData } from "@/types/DialogData"
 
-interface Props{
+interface Props {
     searchQuery: string,
     setSearchQuery: React.Dispatch<React.SetStateAction<string>>,
     categoryFilter: string,
@@ -12,9 +14,11 @@ interface Props{
     statusFilter: string,
     setStatusFilter: React.Dispatch<React.SetStateAction<string>>,
     setAddDialogOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    setDialogAction: React.Dispatch<React.SetStateAction<DialogAction>>,
+    onOpenItemDialog: (action: DialogAction, itemData?: DialogData) => void
 }
 
-export const FilterBar = ({searchQuery, setSearchQuery, categoryFilter, setCategoryFilter, statusFilter, setStatusFilter, setAddDialogOpen}: Props) => {
+export const FilterBar = ({ searchQuery, setSearchQuery, categoryFilter, setCategoryFilter, statusFilter, setStatusFilter, setAddDialogOpen, setDialogAction, onOpenItemDialog }: Props) => {
     return (
         <Card className="bg-card border-border">
             <CardContent className="p-4">
@@ -53,7 +57,10 @@ export const FilterBar = ({searchQuery, setSearchQuery, categoryFilter, setCateg
                             </SelectContent>
                         </Select>
                     </div>
-                    <Button className="bg-primary text-primary-foreground hover:bg-primary/90" onClick={() => setAddDialogOpen(true)}>
+                    <Button className="bg-primary text-primary-foreground hover:bg-primary/90" onClick={() => {
+                        onOpenItemDialog('Add')
+                    }
+                    }>
                         <Plus className="size-4" />
                         Add Item
                     </Button>

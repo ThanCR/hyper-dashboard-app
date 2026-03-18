@@ -16,8 +16,8 @@ export const useInventoryStore = ({searchQuery = '', categoryFilter = '', status
     const {inventoryData} = useAppSelector(state => state.inventory)
     const filtered = inventoryData.filter((item) => {
         const matchesSearch =
-            item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            item.sku.toLowerCase().includes(searchQuery.toLowerCase())
+            item.productName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            item.productSKU.toLowerCase().includes(searchQuery.toLowerCase())
         const matchesCategory = categoryFilter === "all" || item.category === categoryFilter
         const matchesStatus = statusFilter === "all" || item.status === statusFilter
         return matchesSearch && matchesCategory && matchesStatus

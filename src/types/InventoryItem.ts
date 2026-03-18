@@ -1,7 +1,7 @@
 export type InventoryItem = {
   id: string
-  name: string
-  sku: string
+  productName: string
+  productSKU: string
   category: string
   price: number
   stock: number
